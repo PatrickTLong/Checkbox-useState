@@ -18,9 +18,8 @@ const [check, setcheck] = useState({})
 
     function ToDoItem(e) {
         e.preventDefault()
-        return (
-            setinput((prev) => ([...prev, value ]))
-        )
+        setinput((prev) => ([...prev, value ]))
+        setvalue("")
     }
     function SetValue(e) {
         setvalue(e.target.value)
