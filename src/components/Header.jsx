@@ -5,7 +5,7 @@ export default function Header() {
 const [input, setinput] = useState([])
 const [value, setvalue] = useState("")
 const [check, setcheck] = useState({})
-
+const [disab, setdisab] = useState(true)
     function ReturnItems() {
         
         return input.map((prev, index) => (<form   className="flex items-center flex-row w-44  gap-5">
@@ -20,9 +20,12 @@ const [check, setcheck] = useState({})
         e.preventDefault()
         setinput((prev) => ([...prev, value ]))
         setvalue("")
+        setdisab(true)
     }
     function SetValue(e) {
-        setvalue(e.target.value)
+        const newValue = e.target.value;
+        setvalue(newValue);
+        setdisab(newValue === ""); 
     }
     function SetChecked(index) {
         setcheck(prev => ({...prev, [index] : !prev[index]}))
@@ -34,7 +37,7 @@ const [check, setcheck] = useState({})
             <li>
                 <form onSubmit={ToDoItem} className="flex gap-4 flex-row">
                     <input onChange={SetValue} value={value} type="text" className="border-2" />
-                    <button type="submit" className="underline" >Submit</button>
+                    <button type="submit" className="underline" disabled={disab} >Submit</button>
                 </form> 
             </li>
             
