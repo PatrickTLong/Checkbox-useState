@@ -1,15 +1,54 @@
+import { useState } from "react"
+
 export default function Header() {
-   return (
+
+const [input, setinput] = useState([])
+const [value, setvalue] = useState("")
+const [check, setcheck] = useState({})
+
+    function ReturnItems() {
         
-        <ul className="flex flex-col gap-20 justify-center items-center p-5">
-            <li className="text-7xl font-medium">To-Do List</li>
+        return input.map((prev, index) => (<form   className="flex items-center flex-row w-44  gap-5">
+            <input key={index} checked={check[index] || false} onChange={() => SetChecked(index)} type="checkbox"></input>
+            <div className={`${check[index] ? "line-through opacity-50" : ""} text-black`}>{prev}</div>
+        </form>)
+        
+        )
+    }
+
+    function ToDoItem(e) {
+        e.preventDefault()
+        return (
+            setinput((prev) => ([...prev, value ]))
+        )
+    }
+    function SetValue(e) {
+        setvalue(e.target.value)
+    }
+    function SetChecked(index) {
+        setcheck(prev => ({...prev, [index] : !prev[index]}))
+    }
+   return (
+        <>
+        <ul className="flex flex-col gap-8 justify-center items-center p-10">
+            <li className="text-6xl underline font-medium">List</li>
             <li>
-                <form className="flex gap-4 flex-row">
-                    <input type="text" className="border-2" />
-                    <button type="submit" >Submit</button>
+                <form onSubmit={ToDoItem} className="flex gap-4 flex-row">
+                    <input onChange={SetValue} value={value} type="text" className="border-2" />
+                    <button type="submit" className="underline" >Submit</button>
                 </form> 
             </li>
+            
+            {ReturnItems()}
+            
         </ul>
+        
+            
+        
 
+        
+        
+        </>
+        
    )
 }
